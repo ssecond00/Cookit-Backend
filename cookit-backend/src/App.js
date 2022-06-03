@@ -54,7 +54,7 @@ app.use(function (req, res, next) {
 var port = process.env.PORT || 8080;
 // Escuchar en el puerto
 app.listen(port, () => {
-    console.log('Servidor de ABM Users iniciado en el puerto ', port);
+    console.log('Servidor iniciado en el puerto', port);
 });
 
 module.exports = app;
