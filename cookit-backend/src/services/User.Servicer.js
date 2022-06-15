@@ -1,27 +1,47 @@
 // Saving the context of this module inside the _the variable
-_this = this
+_this = this;
 
-// Async function to get the User List
-exports.getUserByMail = async function (query, page, limit) {
+exports.getUserByMail = async function (mail) {
+  try {
+    console.log("GetUserByMail --> ", mail);
+    var User = mail; //Llamado a la base de datos
+    return User;
+  } catch (e) {
+    console.log("error services", e);
+    throw Error("Error while Paginating Users");
+  }
+};
 
-    // Options setup for the mongoose paginate
-    var options = {
-        page,
-        limit
-    }
-
-    // Try Catch the awaited promise to handle the error 
+exports.UpdateUsername = async function (mail, newUsername){
     try {
-        console.log("GetUserByMail --> ",query)
-        //var Users = await User.paginate(query, options)
+        console.log("UpdateUsername -- mail: ", mail," -  new username: ",newUsername );
+        var User = mail; //Llamado a la base de datos
 
-        var Users = 'Endpoint GetUsersByMail';
-        // Return the Userd list that was retured by the mongoose promise
-        return Users;
+        // Metodo Void, nop tiene response
+      } catch (e) {
+        console.log("error services", e);
+        throw Error("Error while Paginating Users");
+      }
+}
 
-    } catch (e) {
-        // return a Error message describing the reason 
-        console.log("error services",e)
-        throw Error('Error while Paginating Users');
-    }
+exports.UpdatePassword = async function (mail, newPassword){
+    try {
+        console.log("UpdatePassword -- mail: ", mail," -  new Password: ",newPassword );
+        var User = mail; //Llamado a la base de datos
+
+        // Metodo Void, nop tiene response
+      } catch (e) {
+        console.log("error services", e);
+        throw Error("Error while Paginating Users");
+      }
+}
+
+exports.CreateUser = async function (UserDTO){
+    try {
+        console.log("CreateUser -- request: ", UserDTO );
+        // Metodo Void, nop tiene response
+      } catch (e) {
+        console.log("error services", e);
+        throw Error("Error while Paginating Users");
+      }
 }
