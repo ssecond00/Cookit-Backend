@@ -12,3 +12,23 @@ exports.getRecetaById = async function (idReceta){
         throw Error("Error while Paginating Users");
     }
 }
+
+exports.getAllRecetas = async function (){
+    try{
+        console.log("Recuperando todas las recetas disponibles...");
+        var recetas =  [
+            {
+                "nombre":"Francisco",
+                "apellido":"troncoso",
+                "fecha_de_nacimiento":"12/12/2012",
+                "sexo":"hombre",
+                "edad":21,
+                
+            }
+        ]
+        return recetas;
+    }catch(e){
+        console.log("error services", e);
+        throw Error("Error while Paginating Users");
+    }
+}
