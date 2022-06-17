@@ -30,3 +30,16 @@ exports.getAllRecetas = async function (req,res) {
     return res.status(400).json({ status: 400, message: e.message });
   }
 };
+
+exports.getRecetasByCriteria = async function (req,res) {
+  try {
+    var Recetas = await RecetaService.getRecetasByCriteria(req.body.idCriteria);
+    return res.status(200).json({
+      status: 200,
+      message: "Se recuperaron todas las recetas correctamente",
+      data:Recetas
+    });
+  } catch (e) {
+    return res.status(400).json({ status: 400, message: e.message });
+  }
+};
