@@ -25,7 +25,8 @@
     "mysql2":"2.3.3",
     "url": "^0.11.0",
     "util": "0.12.4",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "nodemon":"2.0.18"
   },
   "browser": {
     "fs": false,
@@ -33,9 +34,6 @@
     "os": false
   },
   "scripts": {
-    "start": "node src/App.js"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.16"
+    "start": "nodemon src/App.js"
   }
 }
