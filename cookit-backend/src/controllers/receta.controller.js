@@ -6,11 +6,13 @@ _this = this;
 // Async Controller function to get the To do List
 exports.getRecetaById = async function (req, res) {
   try {
-    var User = await RecetaService.getRecetaById(req.body.idReceta);
+    var receta = await RecetaService.getRecetaById(req.params.idReceta);
+    var res;
     return res.status(200).json({
       status: 200,
-      data: User,
-      message: "Se recupero la receta correctamente",
+      message: "Se recupero la receta correctamente.",
+      data: receta,
+      
     });
   } catch (e) {
     return res.status(400).json({ status: 400, message: e.message });

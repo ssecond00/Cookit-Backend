@@ -3,7 +3,7 @@ var router = express.Router()
 var RecetaController = require('../../controllers/receta.controller')
 
 
-router.post('/getRecetaById', RecetaController.getRecetaById);
+router.post('/getRecetaById/:idReceta', RecetaController.getRecetaById);
 
 router.get('/getAllRecetas', RecetaController.getAllRecetas);
 

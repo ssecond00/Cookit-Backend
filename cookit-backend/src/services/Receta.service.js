@@ -1,17 +1,16 @@
 // Saving the context of this module inside the _the variable
 _this = this;
+const receta = require('../../models').receta;
 
-exports.getRecetaById = async function (idReceta){
+exports.getRecetaById = async function (req){
+    return receta
+			.findOrCreate({
+				where: {
+					id: req,
+				},
+			})
+	},
 
-    try{
-        console.log("getRecetaById --> ", idReceta);
-        var Receta = idReceta; //Llamado a la base de datos
-        return Receta;
-    }catch (e){
-        console.log("error services", e);
-        throw Error("Error while Paginating Users");
-    }
-}
 
 exports.getAllRecetas = async function (){
     try{

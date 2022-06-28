@@ -51,7 +51,7 @@ app.use(function (req, res, next) {
 });
 
 // Setup server port
-var port = process.env.PORT || 8080;
+var port = 4000;
 // Escuchar en el puerto
 app.listen(port, () => {
     console.log('Servidor iniciado en el puerto', port);

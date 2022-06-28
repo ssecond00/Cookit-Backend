@@ -1,22 +1,8 @@
 {
   "development": {
     "username": "root",
-    "password": "uade",
-    "database": "COOKIT_DB",
-    "host": "localhost",
-    "dialect": "mysql"
-  },
-  "test": {
-    "username": "root",
-    "password": "uade",
-    "database": "COOKIT_DB",
-    "host": "localhost",
-    "dialect": "mysql"
-  },
-  "production": {
-    "username": "root",
-    "password": "uade",
-    "database": "COOKIT_DB",
+    "password": "123456",
+    "database": "cookit_db",
     "host": "localhost",
     "dialect": "mysql"
   }
