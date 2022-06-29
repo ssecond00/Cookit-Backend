@@ -1,6 +1,13 @@
 // Saving the context of this module inside the _the variable
 _this = this;
 const receta = require('../../models').receta;
+const ingrediente = require('../../models').ingredientes_receta;
+let date_ob = new Date();
+let date = date_ob.getDate();
+let month = date_ob.getMonth() + 1;
+let year = date_ob.getFullYear();
+let today = (year + "-" + month + "-" + date);
+
 
 exports.getRecetaById = async function (id_receta){
     console.log("Se recupera la receta de id "+id_receta);
@@ -85,4 +92,30 @@ exports.createReceta = async function (createRecetaRequest){
 				}
 			})
             .catch(error => res.status(400).send(error))
+}
+
+
+exports.addIngredientesToReceta = async function (receta_id, ingrediente_nuevo){
+    console.log("Id receta: "+receta_id+" ingrediente agregado: "+ingrediente_nuevo);  
+	console.log(today);  
+    return ingrediente
+			.create({
+					id_receta: receta_id,
+					ingrediente: ingrediente_nuevo,
+					createdAt: today,
+					updatedAt: today
+			})
+            .catch(error => res.status(404).send(error))
+}
+
+
+exports.getIngredientesFromReceta = async function (receta_id){
+    console.log("Id receta: "+receta_id);
+    return ingrediente
+			.findAll({
+					where:{
+						id_receta: receta_id,
+					}
+			})
+            .catch(error => res.status(404).send(error))
 }

@@ -105,3 +105,32 @@ exports.createReceta = async function (req,res) {
     return res.status(400).json({ status: 400, message: e.message });
   }
 };
+
+exports.addIng = async function (req,res) {
+  try {
+    
+    var Recetas = await RecetaService.addIngredientesToReceta(req.body.receta_id, req.body.ingrediente_nuevo);
+    return res.status(200).json({
+      status: 200,
+      message: "Se recuperaron todas las recetas correctamente",
+      data:Recetas
+    });
+  } catch (e) {
+    console.log("rompe")
+    return res.status(400).json({ status: 400, message: e.message });
+  }
+};
+
+
+exports.getIngredientesFromReceta = async function (req,res) {
+  try {
+    var Recetas = await RecetaService.getIngredientesFromReceta(req.params.receta_id);
+    return res.status(200).json({
+      status: 200,
+      message: "Se recuperaron todas las recetas correctamente",
+      data:Recetas
+    });
+  } catch (e) {
+    return res.status(400).json({ status: 400, message: e.message });
+  }
+};

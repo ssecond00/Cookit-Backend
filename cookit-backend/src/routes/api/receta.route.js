@@ -17,5 +17,9 @@ router.get('/getRecetasFromUser/:username', RecetaController.getRecetasFromUser)
 
 router.post('/createReceta', RecetaController.createReceta);
 
+router.post('/addIngrediente', RecetaController.addIng);
+
+router.get('/getIngredientesByReceta/:receta_id', RecetaController.getIngredientesFromReceta);
+
 // Export the Router
 module.exports = router;
