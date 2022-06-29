@@ -19,6 +19,38 @@ exports.getRecetaById = async function (req, res) {
   }
 };
 
+// Async Controller function to get the To do List
+exports.getRecetaByDificultad = async function (req, res) {
+  try {
+    var receta = await RecetaService.getRecetaByDificultad(req.params.nivel_dificultad);
+    var res;
+    return res.status(200).json({
+      status: 200,
+      message: "Se recupero la receta correctamente.",
+      data: receta,
+      
+    });
+  } catch (e) {
+    return res.status(400).json({ status: 400, message: e.message });
+  }
+};
+
+// Async Controller function to get the To do List
+exports.getRecetaByTitulo = async function (req, res) {
+  try {
+    var receta = await RecetaService.getRecetaByTitulo(req.params.titulo_receta);
+    var res;
+    return res.status(200).json({
+      status: 200,
+      message: "Se recupero la receta correctamente.",
+      data: receta,
+      
+    });
+  } catch (e) {
+    return res.status(404).json({ status: 404, message: "No encontramos esa receta." });
+  }
+};
+
 
 exports.getAllRecetas = async function (req,res) {
   try {
@@ -35,7 +67,20 @@ exports.getAllRecetas = async function (req,res) {
 
 exports.getRecetasByCriteria = async function (req,res) {
   try {
-    var Recetas = await RecetaService.getRecetasByCriteria(req.body.idCriteria);
+    var Recetas = await RecetaService.getRecetasByCriteria(req.params.categoria_receta);
+    return res.status(200).json({
+      status: 200,
+      message: "Se recuperaron todas las recetas correctamente",
+      data:Recetas
+    });
+  } catch (e) {
+    return res.status(400).json({ status: 400, message: e.message });
+  }
+};
+
+exports.getRecetasFromUser = async function (req,res) {
+  try {
+    var Recetas = await RecetaService.getRecetasFromUser(req.params.username);
     return res.status(200).json({
       status: 200,
       message: "Se recuperaron todas las recetas correctamente",

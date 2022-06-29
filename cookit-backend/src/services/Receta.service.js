@@ -2,54 +2,62 @@
 _this = this;
 const receta = require('../../models').receta;
 
-exports.getRecetaById = async function (req){
+exports.getRecetaById = async function (id_receta){
+    console.log("Se recupera la receta de id "+id_receta);
     return receta
 			.findOrCreate({
 				where: {
-					id: req,
+					id: id_receta,
 				},
 			})
 	},
 
 
 exports.getAllRecetas = async function (){
-    try{
-        console.log("Recuperando todas las recetas disponibles...");
-        var recetas =  [
-            {
-                "nombre":"Francisco",
-                "apellido":"troncoso",
-                "fecha_de_nacimiento":"12/12/2012",
-                "sexo":"hombre",
-                "edad":21,
+    console.log("Se recuperan todas las recetas");
+    return receta.findAll({})
+    },
 
-            }
-        ]
-        return recetas;
-    }catch(e){
-        console.log("error services", e);
-        throw Error("Error while Paginating Users");
-    }
+exports.getRecetasByCriteria = async function (categoria_receta){
+    console.log("La categoria solicitada es : "+categoria_receta);
+    return receta
+			.findOrCreate({
+				where: {
+					categoria: categoria_receta,
+				},
+			})
 }
 
-exports.getRecetasByCriteria = async function (idCriteria){
-    try{
-        var recetas =  [
-            {
-                "nombre":"Francisco",
-                "apellido":"troncoso",
-                "fecha_de_nacimiento":"12/12/2012",
-                "sexo":"hombre",
-                "edad":21,
 
-            }
-        ]
-        console.log("Recuperando todas las recetas disponibles...");
+exports.getRecetaByDificultad = async function (nivel_dificultad){
+    console.log("La dificultad solicitada es : "+nivel_dificultad);
+    return receta
+			.findAll({
+				where: {
+					dificultad: nivel_dificultad,
+				},
+			})
+}
 
-        return recetas;
-        
-    }catch(e){
-        console.log("error services", e);
-        throw Error("Error while Paginating Users");
-    }
+
+exports.getRecetaByTitulo = async function (titulo_receta){
+    console.log("La dificultad solicitada es : "+titulo_receta);    
+    return receta
+			.findOrCreate({
+				where: {
+					title: titulo_receta,
+				},
+			})
+            .catch(error => res.status(404).send(error))
+}
+
+exports.getRecetasFromUser = async function (username){
+    console.log("El usuario es : "+username);    
+    return receta
+			.findAll({
+				where: {
+					user: username,
+				},
+			})
+            .catch(error => res.status(404).send(error))
 }
