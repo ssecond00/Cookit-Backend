@@ -90,3 +90,18 @@ exports.getRecetasFromUser = async function (req,res) {
     return res.status(400).json({ status: 400, message: e.message });
   }
 };
+
+exports.createReceta = async function (req,res) {
+  try {
+    
+    console.log(req.body);
+    var Recetas = await RecetaService.createReceta(req.body);
+    return res.status(200).json({
+      status: 200,
+      message: "Se recuperaron todas las recetas correctamente",
+      data:Recetas
+    });
+  } catch (e) {
+    return res.status(400).json({ status: 400, message: e.message });
+  }
+};

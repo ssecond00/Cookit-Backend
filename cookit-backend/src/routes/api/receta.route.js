@@ -15,5 +15,7 @@ router.get('/getRecetasByTitulo/:titulo_receta', RecetaController.getRecetaByTit
 
 router.get('/getRecetasFromUser/:username', RecetaController.getRecetasFromUser);
 
+router.post('/createReceta', RecetaController.createReceta);
+
 // Export the Router
 module.exports = router;

@@ -61,3 +61,28 @@ exports.getRecetasFromUser = async function (username){
 			})
             .catch(error => res.status(404).send(error))
 }
+
+
+
+exports.createReceta = async function (createRecetaRequest){
+    console.log("Se crea la receta: "+createRecetaRequest);    
+    return receta
+			.findOrCreate({
+				where: {
+					title: createRecetaRequest.title,
+				},
+				defaults: {
+					title: createRecetaRequest.title,
+					date: createRecetaRequest.date,
+					user: createRecetaRequest.user ,
+					dificultad: createRecetaRequest.dificultad ,
+					estrellas: createRecetaRequest.estrellas ,
+					categoria: createRecetaRequest.categoria ,
+					pasos_a_seguir: createRecetaRequest.pasos_a_seguir ,
+					description: createRecetaRequest.description ,
+					createdAt: createRecetaRequest.createdAt ,
+					updatedAt: createRecetaRequest.updatedAt ,
+				}
+			})
+            .catch(error => res.status(400).send(error))
+}
