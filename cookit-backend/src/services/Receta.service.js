@@ -156,3 +156,17 @@ exports.addValoraciontoReceta = async function (id_receta_valorar, valoracion_re
 			})
             .catch(error => res.status(404).send(error));
 }
+
+exports.getValoracionesRecetaById = async function (id_receta){
+    console.log("id de la receta: "+id_receta);
+    return await valoracion
+			.findAll({
+				raw: true,
+				where:{
+					id_receta: id_receta,
+					
+				}
+			})
+            .catch(error => res.status(404).send(error));
+}
+

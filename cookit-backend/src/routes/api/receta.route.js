@@ -27,5 +27,8 @@ router.delete('/deleteRecetaById/:receta_id', RecetaController.deleteRecetaById)
 
 router.post('/addValoraciontoReceta', RecetaController.addValoraciontoReceta);
 
+router.get('/getValoracionesRecetaById/:receta_id', RecetaController.getValoracionesRecetaById);
+
+
 // Export the Router
 module.exports = router;

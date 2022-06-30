@@ -189,4 +189,24 @@ exports.addValoraciontoReceta = async function (req,res) {
 };
 
 
+exports.getValoracionesRecetaById = async function (req,res) {
+  try {
+    var registros = await RecetaService.getValoracionesRecetaById(req.params.receta_id);
+
+    var array = [];
+    for(const valoracion of registros){
+      console.log(valoracion.valoracion);
+      array.push(valoracion.valoracion);
+    }
+
+    return res.status(200).json({
+      status: 200,
+      message: "Se cargo la valoracion de la receta correctamente",
+      data:registros
+    });
+  } catch (e) {
+    return res.status(400).json({ status: 400, message: e.message });
+  }
+};
+
 
