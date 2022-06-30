@@ -134,3 +134,32 @@ exports.getIngredientesFromReceta = async function (req,res) {
     return res.status(400).json({ status: 400, message: e.message });
   }
 };
+
+
+exports.getRecetasByIngrediente = async function (req,res) {
+  try {
+    var list = await RecetaService.getIdRecetaByIngrediente(req.params.ingrediente);
+    var array = [];
+    list.forEach(function(item){
+      array.push(item.id_receta);
+      console.log(item.id_receta)
+    });
+    var recetasPorIngrediente = [];
+
+    var receta;
+
+    for(const id of array){
+      receta = await RecetaService.getRecetaById(id);
+      recetasPorIngrediente.push(receta[0]);
+    }
+    return res.status(200).json({
+    status: 200,
+    message: "Se recuperaron todas las recetas correctamente",
+    data: recetasPorIngrediente
+
+    });
+  } catch (e) {
+    return res.status(400).json({ status: 400, message: e.message });
+  }
+};
+

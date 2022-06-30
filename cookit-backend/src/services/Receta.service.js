@@ -13,6 +13,7 @@ exports.getRecetaById = async function (id_receta){
     console.log("Se recupera la receta de id "+id_receta);
     return receta
 			.findOrCreate({
+				raw: true,
 				where: {
 					id: id_receta,
 				},
@@ -118,4 +119,16 @@ exports.getIngredientesFromReceta = async function (receta_id){
 					}
 			})
             .catch(error => res.status(404).send(error))
+}
+
+
+exports.getIdRecetaByIngrediente = async function (ingrediente_nuevo){
+    console.log("Ingredeinte buscado: "+ingrediente_nuevo);
+    return ingrediente
+			.findAll({
+					where:{
+						ingrediente: ingrediente_nuevo,
+					}
+			})
+            .catch(error => res.status(404).send(error));
 }

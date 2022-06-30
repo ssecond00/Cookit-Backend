@@ -21,5 +21,7 @@ router.post('/addIngrediente', RecetaController.addIng);
 
 router.get('/getIngredientesByReceta/:receta_id', RecetaController.getIngredientesFromReceta);
 
+router.get('/getRecetasByIngrediente/:ingrediente', RecetaController.getRecetasByIngrediente);
+
 // Export the Router
 module.exports = router;
