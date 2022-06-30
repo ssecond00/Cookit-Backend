@@ -23,5 +23,9 @@ router.get('/getIngredientesByReceta/:receta_id', RecetaController.getIngredient
 
 router.get('/getRecetasByIngrediente/:ingrediente', RecetaController.getRecetasByIngrediente);
 
+router.delete('/deleteRecetaById/:receta_id', RecetaController.deleteRecetaById);
+
+router.post('/addValoraciontoReceta', RecetaController.addValoraciontoReceta);
+
 // Export the Router
 module.exports = router;

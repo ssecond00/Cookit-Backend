@@ -2,6 +2,7 @@
 _this = this;
 const receta = require('../../models').receta;
 const ingrediente = require('../../models').ingredientes_receta;
+const valoracion = require('../../models').valoraciones_receta;
 let date_ob = new Date();
 let date = date_ob.getDate();
 let month = date_ob.getMonth() + 1;
@@ -129,6 +130,29 @@ exports.getIdRecetaByIngrediente = async function (ingrediente_nuevo){
 					where:{
 						ingrediente: ingrediente_nuevo,
 					}
+			})
+            .catch(error => res.status(404).send(error));
+}
+
+exports.deleteRecetaById = async function (id_receta_delete){
+    console.log("id de la receta a eliminar: "+id_receta_delete);
+    return receta
+			.destroy({
+					where:{
+						id: id_receta_delete,
+					}
+			})
+            .catch(error => res.status(404).send(error));
+}
+
+exports.addValoraciontoReceta = async function (id_receta_valorar, valoracion_receta){
+    console.log("id de la receta a valorar: "+id_receta_valorar+" Con una valoracion de "+valoracion_receta+" estrellas");
+    return valoracion
+			.create({
+				id_receta: id_receta_valorar,
+				valoracion: valoracion_receta,
+				createdAt: today ,
+				updatedAt: today ,
 			})
             .catch(error => res.status(404).send(error));
 }

@@ -163,3 +163,30 @@ exports.getRecetasByIngrediente = async function (req,res) {
   }
 };
 
+
+exports.deleteRecetaById = async function (req,res) {
+  try {
+    var Recetas = await RecetaService.deleteRecetaById(req.params.receta_id);
+    return res.status(200).json({
+      status: 200,
+      message: "Se elimino la receta de id "+req.params.receta_id+" correctamente"
+    });
+  } catch (e) {
+    return res.status(400).json({ status: 400, message: e.message });
+  }
+};
+
+exports.addValoraciontoReceta = async function (req,res) {
+  try {
+    var Recetas = await RecetaService.addValoraciontoReceta(req.body.receta_id, req.body.valoracion);
+    return res.status(200).json({
+      status: 200,
+      message: "Se cargo la valoracion de la receta correctamente"
+    });
+  } catch (e) {
+    return res.status(400).json({ status: 400, message: e.message });
+  }
+};
+
+
+
