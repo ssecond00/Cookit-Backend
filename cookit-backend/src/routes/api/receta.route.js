@@ -29,6 +29,8 @@ router.post('/addValoraciontoReceta', RecetaController.addValoraciontoReceta);
 
 router.get('/getValoracionesRecetaById/:receta_id', RecetaController.getValoracionesRecetaById);
 
+router.post('/updateReceta', RecetaController.updateReceta);
+
 
 // Export the Router
 module.exports = router;

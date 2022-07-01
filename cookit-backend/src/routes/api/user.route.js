@@ -3,13 +3,13 @@ var router = express.Router()
 var UserController = require('../../controllers/user.controller');
 
 
-router.get('/GetUserByMail', UserController.getUserByMail);
+router.get('/GetUserByid/:user_id', UserController.getUserById);
 
-router.put('/UpdateUsername', UserController.UpdateUsername);
+router.post('/CreateUser', UserController.createUser);
 
-router.put('/UpdatePassword', UserController.UpdatePassword);
+router.put('/updateUsername', UserController.updateUsername);
 
-router.post('/CreateUser', UserController.CreateUser);
+
 
 
 

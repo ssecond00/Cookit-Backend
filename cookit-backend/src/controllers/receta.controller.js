@@ -210,3 +210,15 @@ exports.getValoracionesRecetaById = async function (req,res) {
 };
 
 
+exports.updateReceta = async function (req,res) {
+  try {
+    var Recetas = await RecetaService.updateReceta(req.body);
+
+    return res.status(200).json({
+      status: 200,
+      message: "Se actualizo la receta de id"+req.body.id_receta,
+    });
+  } catch (e) {
+    return res.status(400).json({ status: 400, message: e.message });
+  }
+};

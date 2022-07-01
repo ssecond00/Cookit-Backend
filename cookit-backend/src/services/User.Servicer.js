@@ -1,47 +1,37 @@
 // Saving the context of this module inside the _the variable
 _this = this;
+const usuario = require("../../models").usuario;
 
-exports.getUserByMail = async function (mail) {
-  try {
-    console.log("GetUserByMail --> ", mail);
-    var User = mail; //Llamado a la base de datos
-    return User;
-  } catch (e) {
-    console.log("error services", e);
-    throw Error("Error while Paginating Users");
-  }
-};
-
-exports.UpdateUsername = async function (mail, newUsername){
-    try {
-        console.log("UpdateUsername -- mail: ", mail," -  new username: ",newUsername );
-        var User = mail; //Llamado a la base de datos
-
-        // Metodo Void, nop tiene response
-      } catch (e) {
-        console.log("error services", e);
-        throw Error("Error while Paginating Users");
+exports.getUserbyId = async function (user_id){
+    console.log("Se consigue el usuario de id "+user_id);
+    return usuario.findOrCreate({
+      where:{
+        id: user_id
       }
+    })   
 }
 
-exports.UpdatePassword = async function (mail, newPassword){
-    try {
-        console.log("UpdatePassword -- mail: ", mail," -  new Password: ",newPassword );
-        var User = mail; //Llamado a la base de datos
-
-        // Metodo Void, nop tiene response
-      } catch (e) {
-        console.log("error services", e);
-        throw Error("Error while Paginating Users");
-      }
+exports.createUser = async function (createUserRequest){
+  console.log("Se crea el user "+createUserRequest.username);
+  return usuario.findOrCreate({
+    where:{
+      email: createUserRequest.email
+    },
+     defaults: {
+      email: createUserRequest.email,
+      password:  createUserRequest.password,
+      username: createUserRequest.username,
+      phone_number: createUserRequest.phone_number,
+      nombre: createUserRequest.nombre
+    },
+  })
+  
 }
 
-exports.CreateUser = async function (UserDTO){
-    try {
-        console.log("CreateUser -- request: ", UserDTO );
-        // Metodo Void, nop tiene response
-      } catch (e) {
-        console.log("error services", e);
-        throw Error("Error while Paginating Users");
-      }
+exports.updateUsername = async function (user_id, new_username){
+  console.log("Se setea un nuevo username "+new_username+"    "+user_id);
+  return usuario.upsert({
+    id: user_id,
+    username: new_username
+  })   
 }
