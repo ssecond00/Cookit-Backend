@@ -31,6 +31,8 @@ router.get('/getValoracionesRecetaById/:receta_id', RecetaController.getValoraci
 
 router.post('/updateReceta', RecetaController.updateReceta);
 
+router.get('/getFeaturedPost/:receta_id', RecetaController.getFeaturedPost);
+
 
 // Export the Router
 module.exports = router;

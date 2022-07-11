@@ -10,7 +10,10 @@ let year = date_ob.getFullYear();
 let today = year + "-" + month + "-" + date;
 
 (exports.getRecetaById = async function (id_receta) {
+  console.info("########################");
   console.log("Se recupera la receta de id " + id_receta);
+  console.info("########################");
+
   return receta.findOrCreate({
     raw: true,
     where: {
@@ -157,7 +160,7 @@ exports.addValoraciontoReceta = async function (
     .catch((error) => res.status(404).send(error));
 };
 
-exports.getValoracionesRecetaById = async function (id_receta) {
+getValoracionesRecetaById = async function (id_receta) {
   console.log("id de la receta: " + id_receta);
   return await valoracion
     .findAll({
@@ -169,11 +172,30 @@ exports.getValoracionesRecetaById = async function (id_receta) {
     .catch((error) => res.status(404).send(error));
 };
 
+exports.getValoracionById = async function (id_receta) {
+  console.log("id de la receta: " + id_receta);
+  var vals = await getValoracionesRecetaById(id_receta);
+
+  var array = [];
+  var cant = 0;
+  var sum = 0;
+  for (const valoracion of await vals) {
+    cant++;
+    sum = sum + valoracion.valoracion;
+
+    array.push(valoracion.valoracion);
+  }
+
+  var promedio = sum / cant;
+  console.log("prom ", Math.round(promedio));
+  return  Math.round(promedio);
+};
+
 exports.updateReceta = async function (updateRecetaRequest) {
   console.log("id de la receta: " + updateRecetaRequest.id_receta);
   await receta
     .upsert({
-	    id: updateRecetaRequest.id_receta,
+      id: updateRecetaRequest.id_receta,
       title: updateRecetaRequest.title,
       date: updateRecetaRequest.date,
       user: updateRecetaRequest.user,
