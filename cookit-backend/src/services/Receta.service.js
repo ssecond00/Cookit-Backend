@@ -66,9 +66,9 @@ exports.getRecetasFromUser = async function (username) {
 };
 
 exports.createReceta = async function (createRecetaRequest) {
-  console.log("Se crea la receta: " + createRecetaRequest);
+  console.log("Se crea la receta: " + createRecetaRequest.title);
   return receta
-    .findOrCreate({
+    .create({
       where: {
         title: createRecetaRequest.title,
       },
