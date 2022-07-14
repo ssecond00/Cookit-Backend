@@ -27,7 +27,7 @@ exports.getRecetaByDificultad = async function (req, res) {
     return res.status(200).json({
       status: 200,
       message: "Se recupero la receta correctamente.",
-      receta: receta,
+      recetas: receta,
       
     });
   } catch (e) {
@@ -107,6 +107,7 @@ exports.createReceta = async function (req,res) {
       data:Recetas
     });
   } catch (e) {
+    console.log(e);
     return res.status(400).json({ status: 400, message: e.message });
   }
 };
@@ -165,7 +166,7 @@ exports.getRecetasByIngrediente = async function (req,res) {
     return res.status(200).json({
     status: 200,
     message: "Se recuperaron todas las recetas correctamente",
-    data: recetasPorIngrediente
+    recetas: recetasPorIngrediente
 
     });
   } catch (e) {
