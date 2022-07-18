@@ -27,7 +27,8 @@ let today = year + "-" + month + "-" + date;
   }),
   (exports.getRecetasByCriteria = async function (categoria_receta) {
     console.log("La categoria solicitada es : " + categoria_receta);
-    return receta.findOrCreate({
+    return receta.findAll({
+      raw: true,
       where: {
         categoria: categoria_receta,
       },
@@ -47,6 +48,7 @@ exports.getRecetaByTitulo = async function (titulo_receta) {
   console.log("La dificultad solicitada es : " + titulo_receta);
   return receta
     .findOrCreate({
+      raw: true,
       where: {
         title: titulo_receta,
       },

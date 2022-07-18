@@ -41,3 +41,32 @@ exports.updateUsername = async function (req, res){
       return res.status(400).json({ status: 400, message: e.message });
     }
 }
+
+
+
+exports.getUserByUsername = async function (req, res){
+  try {
+      var us =  await UserService.getUserByUsername(req.body.username);
+      return res.status(200).json({
+        status: 200,
+        message: "Se recupero el User Correctamente!",
+        user: us,
+      });
+    } catch (e) {
+      return res.status(400).json({ status: 400, message: e.message });
+    }
+}
+
+exports.getUsuarioByLogin = async function (req, res){
+  try {
+
+    var User = await UserService.getUsuarioByLogin(req.body.mail, req.body.pass);
+    return res.status(200).json({
+      status: 200,
+      message:"Login",
+      data: User[0],
+    })
+  } catch (e) {
+    return res.status(400).json({ status: 404, message: "Usuario o contraseña incorrectos. Intente nuevamente." });
+  }
+}

@@ -35,3 +35,15 @@ exports.updateUsername = async function (user_id, new_username){
     username: new_username
   })   
 }
+
+
+exports.getUsuarioByLogin = async function (mail, pass){
+  console.log("Usuario "+mail+" de password "+pass);
+  return usuario.findOrCreate({
+    raw: true,
+    where:{
+      email: mail,
+      password: pass
+    }
+  })
+}

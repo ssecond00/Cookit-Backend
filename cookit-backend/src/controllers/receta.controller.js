@@ -40,10 +40,11 @@ exports.getRecetaByTitulo = async function (req, res) {
   try {
     var receta = await RecetaService.getRecetaByTitulo(req.params.titulo_receta);
     var res;
+    console.log("controller ",receta[0])
     return res.status(200).json({
       status: 200,
       message: "Se recupero la receta correctamente.",
-      data: receta,
+      receta: receta[0],
       
     });
   } catch (e) {
@@ -66,17 +67,13 @@ exports.getAllRecetas = async function (req,res) {
 };
 
 exports.getRecetasByCriteria = async function (req,res) {
-
-
-
-
-
   try {
     var Recetas = await RecetaService.getRecetasByCriteria(req.params.categoria_receta);
+    
     return res.status(200).json({
       status: 200,
       message: "Se recuperaron todas las recetas correctamente",
-      recetas_criteria:Recetas
+      recetas:Recetas
     });
   } catch (e) {
     return res.status(400).json({ status: 400, message: e.message });
@@ -89,7 +86,7 @@ exports.getRecetasFromUser = async function (req,res) {
     return res.status(200).json({
       status: 200,
       message: "Se recuperaron todas las recetas correctamente",
-      data:Recetas
+      recetas:Recetas
     });
   } catch (e) {
     return res.status(400).json({ status: 400, message: e.message });
@@ -247,4 +244,6 @@ exports.getFeaturedPost = async function (req,res) {
   } catch (e) {
     return res.status(400).json({ status: 400, message: e.message });
   }
+
+
 };

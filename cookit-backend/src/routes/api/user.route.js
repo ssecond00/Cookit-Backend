@@ -9,7 +9,9 @@ router.post('/CreateUser', UserController.createUser);
 
 router.put('/updateUsername', UserController.updateUsername);
 
+router.get('/getUserByUsername', UserController.getUserByUsername);
 
+router.post('/GetUsuarioByLogin', UserController.getUsuarioByLogin);
 
 
 
