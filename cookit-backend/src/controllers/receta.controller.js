@@ -40,7 +40,6 @@ exports.getRecetaByTitulo = async function (req, res) {
   try {
     var receta = await RecetaService.getRecetaByTitulo(req.params.titulo_receta);
     var res;
-    console.log("controller ",receta[0])
     return res.status(200).json({
       status: 200,
       message: "Se recupero la receta correctamente.",
@@ -95,8 +94,6 @@ exports.getRecetasFromUser = async function (req,res) {
 
 exports.createReceta = async function (req,res) {
   try {
-    
-    console.log(req.body);
     var Recetas = await RecetaService.createReceta(req.body);
     return res.status(200).json({
       status: 200,
@@ -111,12 +108,37 @@ exports.createReceta = async function (req,res) {
 
 exports.addIng = async function (req,res) {
   try {
-    
-    var Recetas = await RecetaService.addIngredientesToReceta(req.body.receta_id, req.body.ingrediente_nuevo);
+    console.log("entra", req.body.ingrediente_nuevo)
+    for (const ing of await req.body.ingrediente_nuevo) {
+      console.log(ing.name)
+      var Recetas = await RecetaService.addIngredientesToReceta(req.body.receta_id, ing.name);
+    }
     return res.status(200).json({
       status: 200,
       message: "Se recuperaron todas las recetas correctamente",
-      data:Recetas
+    });
+  } catch (e) {
+    console.log("rompe")
+    return res.status(400).json({ status: 400, message: e.message });
+  }
+};
+
+
+
+exports.getFP = async function (req,res) {
+  try {
+    
+    var Recetas = await RecetaService.getfeaturedPostsMian();
+
+    var array = [];
+    for (const rec of await Recetas) {
+
+      array.push(rec.id);
+    }
+    return res.status(200).json({
+      status: 200,
+      message: "Se recuperaron los fp",
+      data: array
     });
   } catch (e) {
     console.log("rompe")
@@ -150,7 +172,6 @@ exports.getRecetasByIngrediente = async function (req,res) {
     var array = [];
     list.forEach(function(item){
       array.push(item.id_receta);
-      console.log(item.id_receta)
     });
     var recetasPorIngrediente = [];
 
@@ -230,11 +251,13 @@ exports.getFeaturedPost = async function (req,res) {
   try {
     var receta = await RecetaService.getRecetaById(req.params.receta_id);
     var estrella = await RecetaService.getValoracionById(req.params.receta_id);
+    var foto = await RecetaService.getFotoFromRecetaId(req.params.receta_id);
     var  fp1 =  {
       titulo_receta:receta[0].title,
       date:receta[0].date,
       description: receta[0].description,
-      estrellas: estrella   
+      estrellas: estrella ,
+      foto: foto 
     };
     return res.status(200).json({
       status: 200,
@@ -247,3 +270,35 @@ exports.getFeaturedPost = async function (req,res) {
 
 
 };
+
+exports.addfotoToReceta = async function (req,res) {
+  try {
+    RecetaService.addfotoToReceta(req.body.receta_id, req.body.foto_url);
+    return res.status(200).json({
+      status: 200,
+      message: "Se guardo la imagen correctamente",
+    });
+  } catch (e) {
+    return res.status(400).json({ status: 400, message: e.message });
+  }
+
+
+};
+
+
+exports.getFotoFromReceta = async function (req,res) {
+  try {
+    var resp = await RecetaService.getFotoFromRecetaId(req.params.receta_id);
+
+    return res.status(200).json({
+      status: 200,
+      message: "Se consiguio la imagen",
+      response: resp[0].imagen
+    });
+  } catch (e) {
+    return res.status(400).json({ status: 400, message: e.message });
+  }
+
+
+};
+

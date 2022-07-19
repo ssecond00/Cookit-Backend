@@ -3,6 +3,8 @@ _this = this;
 const receta = require("../../models").receta;
 const ingrediente = require("../../models").ingredientes_receta;
 const valoracion = require("../../models").valoraciones_receta;
+const foto = require("../../models").imagen_receta;
+const { Op } = require("sequelize");
 let date_ob = new Date();
 let date = date_ob.getDate();
 let month = date_ob.getMonth() + 1;
@@ -56,6 +58,18 @@ exports.getRecetaByTitulo = async function (titulo_receta) {
     .catch((error) => res.status(404).send(error));
 };
 
+
+exports.getFotoFromRecetaId = async function (receta_id) {
+  return foto
+    .findOrCreate({
+      raw: true,
+      where: {
+        id_receta: receta_id,
+      },
+    })
+    .catch((error) => res.status(404).send(error));
+};
+
 exports.getRecetasFromUser = async function (username) {
   console.log("El usuario es : " + username);
   return receta
@@ -68,13 +82,10 @@ exports.getRecetasFromUser = async function (username) {
 };
 
 exports.createReceta = async function (createRecetaRequest) {
-  console.log("Se crea la receta: " + createRecetaRequest);
+  console.log("Se crea la receta: " + createRecetaRequest.title);
   return receta
-    .findOrCreate({
-      where: {
-        title: createRecetaRequest.title,
-      },
-      defaults: {
+    .create({
+
         title: createRecetaRequest.title,
         date: createRecetaRequest.date,
         user: createRecetaRequest.user,
@@ -85,9 +96,9 @@ exports.createReceta = async function (createRecetaRequest) {
         description: createRecetaRequest.description,
         createdAt: createRecetaRequest.createdAt,
         updatedAt: createRecetaRequest.updatedAt,
-      },
+        
     })
-    .catch((error) => res.status(400).send(error));
+    
 };
 
 exports.addIngredientesToReceta = async function (
@@ -108,6 +119,22 @@ exports.addIngredientesToReceta = async function (
     .catch((error) => res.status(404).send(error));
 };
 
+
+
+
+exports.addfotoToReceta = async function (receta_id, foto_url) {
+  console.log(
+    "Id receta: " + receta_id + " foto agregada: " + foto_url
+  );
+  return foto
+    .create({
+      id_receta: receta_id,
+      imagen: foto_url
+    })
+    .catch((error) => res.status(404).send(error));
+};
+
+
 exports.getIngredientesFromReceta = async function (receta_id) {
   console.log("Id receta: " + receta_id);
   return ingrediente
@@ -115,6 +142,20 @@ exports.getIngredientesFromReceta = async function (receta_id) {
       where: {
         id_receta: receta_id,
       },
+    })
+    .catch((error) => res.status(404).send(error));
+};
+
+exports.getfeaturedPostsMian = async function () {
+  console.log("llega")
+  return receta
+    .findAll({
+      limit: 4,
+      where:{
+        estrellas:{
+          [Op.eq]: 5
+        }
+      }
     })
     .catch((error) => res.status(404).send(error));
 };
@@ -211,3 +252,5 @@ exports.updateReceta = async function (updateRecetaRequest) {
     })
     .catch((error) => res.status(404).send(error));
 };
+
+
