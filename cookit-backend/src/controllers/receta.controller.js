@@ -40,10 +40,6 @@ exports.getRecetaByTitulo = async function (req, res) {
   try {
     var receta = await RecetaService.getRecetaByTitulo(req.params.titulo_receta);
     var res;
-<<<<<<< HEAD
-    console.log("controller ", receta[0])
-=======
->>>>>>> 7a162e65a6f4e391160c9c78bdb291833c343a35
     return res.status(200).json({
       status: 200,
       message: "Se recupero la receta correctamente.",
@@ -98,11 +94,6 @@ exports.getRecetasFromUser = async function (req, res) {
 
 exports.createReceta = async function (req, res) {
   try {
-<<<<<<< HEAD
-
-    console.log(req.body);
-=======
->>>>>>> 7a162e65a6f4e391160c9c78bdb291833c343a35
     var Recetas = await RecetaService.createReceta(req.body);
     return res.status(200).json({
       status: 200,
@@ -117,14 +108,6 @@ exports.createReceta = async function (req, res) {
 
 exports.addIng = async function (req, res) {
   try {
-<<<<<<< HEAD
-
-    var Recetas = await RecetaService.addIngredientesToReceta(req.body.receta_id, req.body.ingrediente_nuevo);
-    return res.status(200).json({
-      status: 200,
-      message: "Se recuperaron todas las recetas correctamente",
-      data: Recetas
-=======
     console.log("entra", req.body.ingrediente_nuevo)
     for (const ing of await req.body.ingrediente_nuevo) {
       console.log(ing.name)
@@ -158,7 +141,6 @@ exports.getFP = async function (req,res) {
       status: 200,
       message: "Se recuperaron los fp",
       data: array
->>>>>>> 7a162e65a6f4e391160c9c78bdb291833c343a35
     });
   } catch (e) {
     console.log("rompe")
@@ -272,13 +254,6 @@ exports.getFeaturedPost = async function (req, res) {
   try {
     var receta = await RecetaService.getRecetaById(req.params.receta_id);
     var estrella = await RecetaService.getValoracionById(req.params.receta_id);
-<<<<<<< HEAD
-    var fp1 = {
-      titulo_receta: receta[0].title,
-      date: receta[0].date,
-      description: receta[0].description,
-      estrellas: estrella
-=======
     var foto = await RecetaService.getFotoFromRecetaId(req.params.receta_id);
     var  fp1 =  {
       titulo_receta:receta[0].title,
@@ -286,7 +261,6 @@ exports.getFeaturedPost = async function (req, res) {
       description: receta[0].description,
       estrellas: estrella ,
       foto: foto 
->>>>>>> 7a162e65a6f4e391160c9c78bdb291833c343a35
     };
     return res.status(200).json({
       status: 200,
