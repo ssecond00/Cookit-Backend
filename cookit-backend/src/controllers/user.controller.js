@@ -7,9 +7,10 @@ _this = this;
 exports.getUserById = async function (req, res) {
   try {
     var User = await UserService.getUserbyId(req.params.user_id);
+    console.log(User);
     return res.status(200).json({
       status: 200,
-      message:"USER_FOUND",
+      message: "USER_FOUND",
       data: User,
     });
   } catch (e) {
@@ -17,53 +18,67 @@ exports.getUserById = async function (req, res) {
   }
 };
 
-exports.createUser = async function (req, res){
-    try {
-        var user = await UserService.createUser(req.body);
-        return res.status(200).json({
-          status: 200,
-          message: "Se creo el User Correctamente!",
-          data: user
-        });
-      } catch (e) {
-        return res.status(400).json({ status: 400, message: e.message });
-      }
-}
-
-exports.updateUsername = async function (req, res){
+exports.createUser = async function (req, res) {
   try {
-      await UserService.updateUsername(req.body.user_id, req.body.new_username);
-      return res.status(200).json({
-        status: 200,
-        message: "Se creo el User Correctamente!",
-      });
-    } catch (e) {
-      return res.status(400).json({ status: 400, message: e.message });
-    }
+    var user = await UserService.createUser(req.body);
+    return res.status(200).json({
+      status: 200,
+      message: "Se creo el User Correctamente!",
+      data: user
+    });
+  } catch (e) {
+    return res.status(400).json({ status: 400, message: e.message });
+  }
 }
 
-
-
-exports.getUserByUsername = async function (req, res){
+exports.updateUsername = async function (req, res) {
   try {
-      var us =  await UserService.getUserByUsername(req.body.username);
-      return res.status(200).json({
-        status: 200,
-        message: "Se recupero el User Correctamente!",
-        user: us,
-      });
-    } catch (e) {
-      return res.status(400).json({ status: 400, message: e.message });
-    }
+    console.log(req.body);
+    await UserService.updateUsername(req.body.usrname, req.body.new_username);
+    return res.status(200).json({
+      status: 200,
+      message: "Se actualizo el username Correctamente!",
+    });
+  } catch (e) {
+    return res.status(400).json({ status: 400, message: "No se cambio el username" });
+  }
 }
 
-exports.getUsuarioByLogin = async function (req, res){
+exports.updatePassword = async function (req, res) {
+  try {
+    console.log(req.body);
+    await UserService.updatePassword(req.body.mail, req.body.new_password);
+    return res.status(200).json({
+      status: 200,
+      message: "Se actualizo la password Correctamente!",
+    });
+  } catch (e) {
+    return res.status(400).json({ status: 400, message: "No se cambio el username" });
+  }
+}
+
+
+
+exports.getUserByUsername = async function (req, res) {
+  try {
+    var us = await UserService.getUserByUsername(req.body.username);
+    return res.status(200).json({
+      status: 200,
+      message: "Se recupero el User Correctamente!",
+      user: us,
+    });
+  } catch (e) {
+    return res.status(400).json({ status: 400, message: e.message });
+  }
+}
+
+exports.getUsuarioByLogin = async function (req, res) {
   try {
 
     var User = await UserService.getUsuarioByLogin(req.body.mail, req.body.pass);
     return res.status(200).json({
       status: 200,
-      message:"Login",
+      message: "Login",
       data: User[0],
     })
   } catch (e) {

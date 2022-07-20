@@ -193,21 +193,20 @@ exports.getValoracionById = async function (id_receta) {
   return  Math.round(promedio);
 };
 
-exports.updateReceta = async function (updateRecetaRequest) {
-  console.log("id de la receta: " + updateRecetaRequest.id_receta);
+exports.updateReceta = async function (id_receta, titulo, fecha, usuario, dif, est, cat, pasos, desc, crat, upat) {
+  console.log("id de la receta: " + id_receta);
   await receta
-    .upsert({
-      id: updateRecetaRequest.id_receta,
-      title: updateRecetaRequest.title,
-      date: updateRecetaRequest.date,
-      user: updateRecetaRequest.user,
-      dificultad: updateRecetaRequest.dificultad,
-      estrellas: updateRecetaRequest.estrellas,
-      categoria: updateRecetaRequest.categoria,
-      pasos_a_seguir: updateRecetaRequest.pasos_a_seguir,
-      description: updateRecetaRequest.description,
-      createdAt: today,
-      updatedAt: today,
-    })
+    .update({
+      title: titulo,
+      date: fecha,
+      user: usuario,
+      dificultad: dif,
+      estrellas: est,
+      categoria: cat,
+      pasos_a_seguir: pasos,
+      description: desc,
+      createdAt: crat,
+      updatedAt: upat,
+    }, {where: {id: id_receta}})
     .catch((error) => res.status(404).send(error));
 };
