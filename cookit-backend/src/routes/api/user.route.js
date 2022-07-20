@@ -7,7 +7,9 @@ router.get('/GetUserByid/:user_id', UserController.getUserById);
 
 router.post('/CreateUser', UserController.createUser);
 
-router.put('/updateUsername', UserController.updateUsername);
+router.post('/updateUsername', UserController.updateUsername);
+
+router.post('/updatePassword', UserController.updatePassword);
 
 router.get('/getUserByUsername', UserController.getUserByUsername);
 
