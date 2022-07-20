@@ -129,12 +129,14 @@ exports.getFP = async function (req,res) {
   try {
     
     var Recetas = await RecetaService.getfeaturedPostsMian();
-
+    
     var array = [];
     for (const rec of await Recetas) {
 
       array.push(rec.id);
     }
+
+    
     return res.status(200).json({
       status: 200,
       message: "Se recuperaron los fp",
