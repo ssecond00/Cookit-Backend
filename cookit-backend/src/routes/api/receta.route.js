@@ -33,6 +33,13 @@ router.post('/updateReceta', RecetaController.updateReceta);
 
 router.get('/getFeaturedPost/:receta_id', RecetaController.getFeaturedPost);
 
+router.get('/getMainPageFeaturedPosts', RecetaController.getFP);
+
+router.post('/addfotoToReceta', RecetaController.addfotoToReceta);
+
+router.get('/getFoto/:receta_id', RecetaController.getFotoFromReceta);
+
+
 
 // Export the Router
 module.exports = router;

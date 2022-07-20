@@ -4,7 +4,7 @@ var fs = require('fs');
 var fs = bluebird.promisifyAll(require('fs'))
 var {join} = require('path');
 
-var imageService =require('../services/Images.service');
+var imageService =require('../services/imagenes.service');
 
 // Saving the context of this module inside the _the variable
 _this = this;
@@ -12,9 +12,9 @@ _this = this;
 // Async Controller function to get the To do List
 exports.uploadImage = async function (req, res) {
 
-  let form = Formidable.IncomingForm();
-  const uploadsFolder = "imagenes/";
-  form.multiples = true
+	let form = Formidable.IncomingForm();
+	const uploadsFolder = "imagenes/";
+	form.multiples = true
 	form.uploadDir = uploadsFolder
 	form.maxFileSize = 50 * 1024 * 1024 // 50 MB
 	const folderCreationResult = await checkCreateUploadsFolder(uploadsFolder)
@@ -68,7 +68,7 @@ exports.uploadImage = async function (req, res) {
 
 exports.guardarImagenUser = async function (req, res) {
 
-    console.log("ImgUser",req.body)
+
     // Id is necessary for the update
     if (!req.body.email) {
         return res.status(400).json({status: 400., message: "Mail must be present"})
@@ -82,13 +82,61 @@ exports.guardarImagenUser = async function (req, res) {
     try {
         if (userImg.nombreImagen!=='')
         {
-            var newUserImg = await imageService.createUserImg(userImg);
+            var newUserImg = await imageService.createUserImg(userImg, req.body.receta_id);
         }
-        
-        return res.status(201).json({status: 201, message: "Imagen cargada"});
+
+        return res.status(201).json({status: 201, message: "Imagen cargada", data: newUserImg });
         
     } catch (e) {
         console.log("error guardar imagen",e)
         return res.status(400).json({status: 400., message: e.message})
     }
+}
+
+
+
+// Returns true if successful or false otherwise
+async function checkCreateUploadsFolder (uploadsFolder) {
+    try 
+    {
+		await fs.statAsync(uploadsFolder)
+    } 
+    catch (e) 
+    {
+        if (e && e.code == 'ENOENT') 
+        {
+			console.log('The uploads folder doesn\'t exist, creating a new one...')
+            try 
+            {
+				await fs.mkdirAsync(uploadsFolder)
+            } 
+            catch (err) 
+            {
+				console.log('Error creating the uploads folder 1')
+				return false
+			}
+        } 
+        else 
+        {
+			console.log('Error creating the uploads folder 2')
+			return false
+		}
+	}
+	return true
+}
+
+
+// Returns true or false depending on whether the file is an accepted type
+function checkAcceptedExtensions (file) 
+{
+	const type = file.type.split('/').pop()
+	const accepted = ['jpeg', 'jpg', 'png', 'gif', 'pdf','webp']
+	if (accepted.indexOf(type) == -1) {
+		console.log("######## checkAcceptedExtensions", false)
+
+		return false
+	}
+	console.log("####### checkAcceptedExtensions", true)
+
+	return true
 }
