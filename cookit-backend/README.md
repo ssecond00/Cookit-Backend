@@ -1,70 +1,98 @@
-# Getting Started with Create React App
+# Cookit - Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## ¿Que es Cookit? 
 
-## Available Scripts
+Cookit es un sitio institucional en donde los usuarios pueden consultar y buscar distintas recetas para cocinar. Los usuarios podran registrarse para poder asi cargar
+sus propias recetas. Estas recetas a su vez pueden ser filtradas por distintos criterios.
 
-In the project directory, you can run:
+## Casos de uso:
 
-### `npm start`
+- Los usuarios podrán registrarse para utilizar la aplicación, para ello deberán completar un formulario con la siguiente información: nombre y apellido, mail, número de teléfono. (No se permitirá registrar usuarios con el mismo mail.)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Los usuarios podrán ingresar a la aplicación con su mail y contraseña. Tendrán la posibilidad de solicitar una nueva en caso de olvidarla mediante la opción OLVIDE CONTRASEÑA. Se recomienda utilizar algún criterio de validación para el reseteo de la misma.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Los usuarios registrados podrán gestionar su nombre y cambiar contraseña. 
 
-### `npm test`
+- Los usuarios podrán registrar nuevas recetas en el sitio.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Los usuarios podrán modificar el contenido de sus recetas, quitarlas de publicacióno publicarlas nuevamente.
 
-### `npm run build`
+- Los usuarios podráneliminar sus recetas del sitio.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Los usuarios registrados podráncalificar las recetas publicadas. Esta calificacióndebe poder visualizarse en el sitio principal para que los usuarios puedan filtrar recetas.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# Pre-requisitos:
 
-### `npm run eject`
+## Sistema Operativo:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Tanto el backend como el frontend de la aplicacion pueden ser ejecutados en Windows, Linux y MacOS.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Frameworks utilizados: 
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- ReactJs
+- NodeJs
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Conocimiento
 
-## Learn More
+Se requiere un conocimiento basico-intermedio de ambos frameworks mencionados anteriormente. Tambien el manejo de bases de datos relacionales y de Sequalize. *(Sequelize is a modern TypeScript and Node.js ORM for Postgres, MySQL, MariaDB, SQLite and SQL Server, and more. )*
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+# Instalacion.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Repositorios:
 
-### Analyzing the Bundle Size
+El forntend y el backend de la aplicacion estan en repositorios separados de GitHub.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Frontend:
+[Cookit-Frontend](https://github.com/ssecond00/Cookit-Frontend-new.git)
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Backend:
+[Cookit-Backend](https://github.com/ssecond00/Cookit-Backend.git)
 
-### Advanced Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Comandos
 
-### Deployment
+Estos comandos deben ser ejecutados en ambos proyectos (frontend y backend) siempre *parado* en el directorio raiz de cada proyecto.
+### 1) instalar todas las librerias necesarias.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+```
+> npm install --legacy-peer-deps
+```
 
-### `npm run build` fails to minify
+### 2) Levantar el servidor de manera loccal.
+```
+> npm start
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# Diagrama de Base de datos
+
+![alt text](https://res.cloudinary.com/cookitdb/image/upload/v1658417256/btzyxyum7hv7vbdturzq.png
+)
+
+
+## Seteo de configuraciones - Variables de entorno.
+
+### Base de datos relacional: 
+en el archivo `config.json` ubicado en: `cookit-backend/config/` se deben setear las siguientes variables:
+``` 
+"username": "root",
+"password": "******",
+"database": "cookit_db",
+"host": "localhost",
+"dialect": "mysql"
+``` 
+
+### Repositorio externo para almacenar imagenes.
+en el archivo `imagenes.service.js` ubicado en: `cookit-backend/src/services/` se deben setear las siguientes variables:
+``` 
+cloudinary.config({ 
+    cloud_name: 'cookitdb', 
+    api_key: '626845486871269', 
+    api_secret: '****'
+});
+``` 
+
+

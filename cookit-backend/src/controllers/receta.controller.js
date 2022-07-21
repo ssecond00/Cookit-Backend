@@ -67,6 +67,7 @@ exports.getAllRecetas = async function (req, res) {
 
 exports.getRecetasByCriteria = async function (req, res) {
   try {
+    console.log(req.params.categoria_receta)
     var Recetas = await RecetaService.getRecetasByCriteria(req.params.categoria_receta);
 
     return res.status(200).json({
@@ -238,7 +239,7 @@ exports.getValoracionesRecetaById = async function (req, res) {
 exports.updateReceta = async function (req, res) {
   try {
     console.log(req.body);
-    var receta = await RecetaService.updateReceta(req.body.id_receta, req.body.titulo, req.body.fecha, req.body.usuario, req.body.dif, req.body.est, req.body.cat, req.body.pasos, req.body.desc, req.body.crat, req.body.upat);
+    var receta = await RecetaService.updateReceta(req.body.id_receta, req.body.title, req.body.fecha, req.body.usuario, req.body.dif, req.body.est, req.body.cat, req.body.pasos, req.body.desc, req.body.crat, req.body.upat);
     return res.status(200).json({
       status: 200,
       message: "Se actualizo la receta",
